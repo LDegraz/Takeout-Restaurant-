@@ -1,31 +1,10 @@
 def place_order(menu):
-    """
-    Displays a restaurant menu, asks customers for their order, then returns
-    their receipt and total price.
-
-    Parameters:
-    menu (dictionary): A nested dictionary containing the menu items and their 
-                       prices, using the following format:
-                        {
-                            "Food category": {
-                                "Meal": price
-                            }
-                        }
-
-    Returns:
-    order (list): A list of dictionaries containing the menu item name, price,
-                  and quantity ordered.
-    order_total (float): The total price of the order.
-    """
-    # Set up order list. Order list will store a list of dictionaries for
-    # menu item name, item price, and quantity ordered
     order = []
-
-    # Get the menu items mapped to the menu numbers
     menu_items = get_menu_items_dict(menu)
 
-    # Launch the store and present a greeting to the customer
-    print("Welcome to the Generic Take Out Restaurant. \nWhat would you like to order?")
+    print("Welcome to the Generic Take Out Restaurant.")
+    print("What would you like to order? ")
+
     place_ordering = True
 
     while place_ordering:
@@ -36,22 +15,19 @@ def place_order(menu):
                 print_menu_line(i, food_category, meal, price)
                 i += 1
 
-        # Updated prompt for menu selection
         menu_selection = input("Type menu number: ")
-
         order = update_order(order, menu_selection, menu_items)
 
-        keep_ordering = input("Would you like to keep ordering? (N)o to quit: ")
-
+        keep_ordering = input("Would you like to keep ordering? (N) to quit: ")
         if keep_ordering.lower() == 'n':
             print("Thank you for your order.")
 
             prices_list = [item["Price"] * item["Quantity"] for item in order]
             order_total = round(sum(prices_list), 2)
-
             place_ordering = False
 
     return order, order_total
+
 
 def update_order(order, menu_selection, menu_items):
     """
@@ -82,7 +58,11 @@ def update_order(order, menu_selection, menu_items):
     item_name = menu_items[menu_index]["Item name"]
     item_price = menu_items[menu_index]["Price"]
 
-    quantity_input = input(f"What quantity of {item_name} would you like? \n(This will default to 1 if number is not entered) ")
+    # quantity_input = input(f"What quantity of {item_name} would you like? \n(This will default to 1 if number is not entered) ")
+    print(f"What quantity of {item_name} would you like? ")
+    print("(This will default to 1 if number is not entered)")
+    quantity_input = input()
+
 
     if quantity_input.isdigit():
         quantity = int(quantity_input)
