@@ -69,22 +69,19 @@ def update_order(order, menu_selection, menu_items):
                     and quantity ordered (updated as needed).
     """
 
-
     if not menu_selection.isdigit():
-        print("Sorry, that number isn't an option.")
-        return order
-    
-    menu_index = int(menu_selection)
-
-    if menu_index not in menu_items:
         print(f"{menu_selection} was not a menu option.")
         return order
 
     menu_index = int(menu_selection)
+
+    if menu_index not in menu_items:
+        print("Sorry, that number isn't an option.")
+        return order
+
     item_name = menu_items[menu_index]["Item name"]
     item_price = menu_items[menu_index]["Price"]
 
-    # Updated prompt for quantity input
     quantity_input = input(f"What quantity of {item_name} would you like? \n(This will default to 1 if number is not entered) ")
 
     if quantity_input.isdigit():
@@ -302,4 +299,3 @@ if __name__ == "__main__":
 
     # Print the receipt footer with the total price
     print_receipt_footer(total_price)
-
