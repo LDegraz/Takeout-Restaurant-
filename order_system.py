@@ -25,10 +25,8 @@ def place_order(menu):
     menu_items = get_menu_items_dict(menu)
 
     # Launch the store and present a greeting to the customer
-    print("Welcome to the Generic Take Out Restaurant.")
+    print("Welcome to the Generic Take Out Restaurant. \nWhat would you like to order?")
     place_ordering = True
-
-    print("Welcome to the Generic Take Out Restaurant.")
 
     while place_ordering:
         i = 1
@@ -39,11 +37,11 @@ def place_order(menu):
                 i += 1
 
         # Updated prompt for menu selection
-        menu_selection = input("Enter the number of the item you'd like to order: ")
+        menu_selection = input("Type menu number: ")
 
         order = update_order(order, menu_selection, menu_items)
 
-        keep_ordering = input("Would you like to keep ordering? (N) to quit: ")
+        keep_ordering = input("Would you like to keep ordering? (N)o to quit: ")
 
         if keep_ordering.lower() == 'n':
             print("Thank you for your order.")
@@ -54,7 +52,6 @@ def place_order(menu):
             place_ordering = False
 
     return order, order_total
-
 
 def update_order(order, menu_selection, menu_items):
     """
@@ -71,22 +68,24 @@ def update_order(order, menu_selection, menu_items):
     order (list): A list of dictionaries containing the menu item name, price,
                     and quantity ordered (updated as needed).
     """
-    if not menu_selection.isdigit():
-        print("Invalid input. Please enter a number corresponding to the menu item.")
-        return order
 
+
+    if not menu_selection.isdigit():
+        print("Sorry, that number isn't an option.")
+        return order
+    
     menu_index = int(menu_selection)
 
     if menu_index not in menu_items:
-        # Updated error message for invalid menu option
-        print(f"{menu_selection} is not a valid menu option.")
+        print(f"{menu_selection} was not a menu option.")
         return order
 
+    menu_index = int(menu_selection)
     item_name = menu_items[menu_index]["Item name"]
     item_price = menu_items[menu_index]["Price"]
 
     # Updated prompt for quantity input
-    quantity_input = input(f"How many of '{item_name}' would you like to order? \n(This will default to 1 if number is not entered) ")
+    quantity_input = input(f"What quantity of {item_name} would you like? \n(This will default to 1 if number is not entered) ")
 
     if quantity_input.isdigit():
         quantity = int(quantity_input)
